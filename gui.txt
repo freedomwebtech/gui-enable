@@ -1,0 +1,14 @@
+sudo apt install xfce4 xfce4-goodies
+sudo apt -y install vnc4server
+sudo vncserver :1
+sudo vncserver -kill :1
+sudo vncserver :1 -geometry 1280x680 -depth 24
+sudo  apt -y install novnc websockify python-numpy
+sudo openssl req -x509 -nodes -newkey rsa:2048 -keyout novnc.pem -out novnc.pem -days 365
+sudo  chmod 644 novnc.pem
+sudo websockify -D --web=/usr/share/novnc/ --cert=/etc/ssl/novnc.pem 6080 localhost:5901
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+sudo nano /usr/bin/google-chrome
+exec -a "$0" "$HERE/chrome" "$@"
+
+exec -a "$0" "$HERE/chrome" "$@"  --no-sandbox
